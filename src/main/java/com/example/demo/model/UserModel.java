@@ -76,16 +76,16 @@ public class UserModel {
     /*
     * 验证token
     * */
-    public Boolean checkToken (String token,int id) {
-        //获取密码
-//        String pwd = (String) jdbcTemplate.queryForObject("SELECT password FROM USER WHERE id = ?", new Object[] {id}, java.lang.String.class);
+    public Boolean checkToken (String token, int id) {
         // 验证 token
         JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256("mimimininini")).build();
-//        try {
+        try {
             jwtVerifier.verify(token);
-//        } catch (JWTVerificationException e) {
-//            throw new RuntimeException("401");
-//        }
-        return true;
+            return true; // Token is valid
+        } catch (JWTVerificationException e) {
+            // Log the exception (optional)
+            // System.err.println("Token verification failed: " + e.getMessage());
+            return false; // Token is invalid
+        }
     }
 }
